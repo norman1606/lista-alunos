@@ -9,33 +9,17 @@
 
     <hr />
 
-      <div class="tabela-alunos" v-show="alunos.length > 0">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Nome</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(aluno, indice) in alunos" :key="indice">
-                        <td>{{ indice + 1 }}</td>
-                        <td>{{ aluno }}</td>
-                        <td>
-                            <button type="button" class="btn btn-danger" @click="excluirAluno(indice)">Excluir</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-      </div>
-      <div class="mensagem-tabela-vazia" v-if="alunos.length == 0">
-          <h3 v-text="mensagemTabelaVazia"></h3>
-      </div>
+        <TabelaAlunos :listaAlunos="alunos" @excluirAluno ='excluirAluno' />
+
+      
   </div>
 </template>
 
 <script>
+import TabelaAlunos from './TabelaAlunos.vue'
+
 export default {
+    
     data() {
         return {
             inputPlaceHolder: 'Insira o nome do aluno',
@@ -46,6 +30,11 @@ export default {
             alunos:[]
         }
     },
+
+    components: {
+        TabelaAlunos
+    },
+
     methods:{
         adicionarAluno() {
             if (this.aluno.nome) {
